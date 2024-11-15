@@ -47,13 +47,13 @@ const Item = ({ item, type = "full" }: ItemProps) => {
   const maxQuantity = item.variant?.manage_inventory ? 10 : maxQtyFromInventory
 
   return (
-    <Table.Row className="w-full" data-testid="product-row">
+    <Table.Row className="w-full bg-transparent hover:bg-transparent" data-testid="product-row">
       <Table.Cell className="!pl-0 p-4 w-24">
         <LocalizedClientLink
           href={`/products/${handle}`}
-          className={clx("flex", {
-            "w-16": type === "preview",
-            "small:w-24 w-12": type === "full",
+          className={clx('flex', {
+            'w-16': type === 'preview',
+            'small:w-24 w-12': type === 'full',
           })}
         >
           <Thumbnail
@@ -65,13 +65,18 @@ const Item = ({ item, type = "full" }: ItemProps) => {
       </Table.Cell>
 
       <Table.Cell className="text-left">
-        <Text
-          className="txt-medium-plus text-ui-fg-base"
-          data-testid="product-title"
-        >
-          {item.product_title}
+      <Text className="text-[#F5F5F7]" data-testid="product-title">
+          {item.title}
         </Text>
-        <LineItemOptions variant={item.variant} data-testid="product-variant" />
+        <LineItemOptions
+          title="Taille"
+          content={item.metadata.size as string}
+          data-testid="product-size"
+        />
+        <LineItemOptions
+          title="Option"
+          content={item.variant.title} data-testid="product-variant"
+        />
       </Table.Cell>
 
       {type === "full" && (
@@ -114,13 +119,17 @@ const Item = ({ item, type = "full" }: ItemProps) => {
 
       <Table.Cell className="!pr-0">
         <span
-          className={clx("!pr-0", {
-            "flex flex-col items-end h-full justify-center": type === "preview",
+          className={clx('!pr-0', {
+            'flex flex-col items-end h-full justify-center': type === 'preview',
           })}
         >
           {type === "preview" && (
             <span className="flex gap-x-1 ">
-              <Text className="text-ui-fg-muted">{item.quantity}x </Text>
+              <Text className="text-[#F5F5F7]">
+                {item.quantity}
+                x
+                {' '}
+              </Text>
               <LineItemUnitPrice item={item} style="tight" />
             </span>
           )}

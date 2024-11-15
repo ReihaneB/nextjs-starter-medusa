@@ -1,26 +1,27 @@
-import { Button, Heading, Text } from "@medusajs/ui"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Text } from '@medusajs/ui';
 
-const SignInPrompt = () => {
+import LocalizedClientLink from '@modules/common/components/localized-client-link';
+
+import styles from './SignInPrompt.module.css';
+
+function SignInPrompt() {
   return (
-    <div className="bg-white flex items-center justify-between">
+    <div className="flex justify-between">
       <div>
-        <Heading level="h2" className="txt-xlarge">
-          Already have an account?
-        </Heading>
-        <Text className="txt-medium text-ui-fg-subtle mt-2">
-          Sign in for a better experience.
+        <h3>
+          Souhaitez-vous une meilleure expérience ?
+        </h3>
+        <Text className="txt-medium mt-2 text-[#F5F5F7]">
+          Connectez vous pour avoir accès à vos commandes et informations personnelles.
         </Text>
       </div>
       <div>
-        <LocalizedClientLink href="/account">
-          <Button variant="secondary" className="h-10" data-testid="sign-in-button">
-            Sign in
-          </Button>
+        <LocalizedClientLink href="/account" className={styles.link}>
+          Se connecter
         </LocalizedClientLink>
       </div>
     </div>
-  )
+  );
 }
 
-export default SignInPrompt
+export default SignInPrompt;

@@ -1,0 +1,10 @@
+.link {
+  display: inline-block;
+  border: 1px solid var(--white-dark);
+  border-radius: 4px;
+  color: var(--white-light);
+  padding: 8px 16px;
+  background-color: var(--secondary-light);
+  white-space: nowrap;
+  margin-left: 16px;
+}

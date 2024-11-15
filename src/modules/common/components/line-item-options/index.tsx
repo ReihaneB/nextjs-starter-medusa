@@ -1,26 +1,30 @@
-import { HttpTypes } from "@medusajs/types"
-import { Text } from "@medusajs/ui"
+/* eslint-disable react/require-default-props */
+import { Text } from '@medusajs/ui';
 
 type LineItemOptionsProps = {
-  variant: HttpTypes.StoreProductVariant | undefined
-  "data-testid"?: string
-  "data-value"?: HttpTypes.StoreProductVariant
+  title: string
+  content: string
+  'data-testid'?: string
+  'data-value'?: string
 }
 
-const LineItemOptions = ({
-  variant,
-  "data-testid": dataTestid,
-  "data-value": dataValue,
-}: LineItemOptionsProps) => {
+function LineItemOptions({
+  title,
+  content,
+  'data-testid': dataTestid,
+  'data-value': dataValue,
+}: LineItemOptionsProps) {
   return (
     <Text
       data-testid={dataTestid}
       data-value={dataValue}
-      className="inline-block txt-medium text-ui-fg-subtle w-full overflow-hidden text-ellipsis"
+      className="inline-block txt-medium text-[#BFBFBF] w-full overflow-hidden text-ellipsis"
     >
-      Variant: {variant?.title}
+      {title}
+      :
+      {content}
     </Text>
-  )
+  );
 }
 
-export default LineItemOptions
+export default LineItemOptions;

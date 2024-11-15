@@ -1,9 +1,8 @@
-"use client"
+import React from "react"
+import { InformationCircleSolid } from '@medusajs/icons';
 
 import { convertToLocale } from "@lib/util/money"
-import { InformationCircleSolid } from "@medusajs/icons"
 import { Tooltip } from "@medusajs/ui"
-import React from "react"
 
 type CartTotalsProps = {
   totals: {
@@ -30,10 +29,16 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
 
   return (
     <div>
-      <div className="flex flex-col gap-y-2 txt-medium text-ui-fg-subtle ">
+      <div className="flex flex-col gap-y-2 txt-medium text-[#F5F5F7]">
         <div className="flex items-center justify-between">
           <span className="flex gap-x-1 items-center">
-            Subtotal (excl. shipping and taxes)
+          Sous-total
+          <Tooltip
+              className="bg-[#242528] text-[#F5F5F7]"
+              content="Le sous-total exclut les taxes et les frais de livraison."
+            >
+              <InformationCircleSolid color="var(--white-medium)" />
+            </Tooltip>
           </span>
           <span data-testid="cart-subtotal" data-value={subtotal || 0}>
             {convertToLocale({ amount: subtotal ?? 0, currency_code })}
@@ -41,7 +46,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
         </div>
         {!!discount_total && (
           <div className="flex items-center justify-between">
-            <span>Discount</span>
+            <span>Réduction</span>
             <span
               className="text-ui-fg-interactive"
               data-testid="cart-discount"
@@ -53,7 +58,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
           </div>
         )}
         <div className="flex items-center justify-between">
-          <span>Shipping</span>
+        <span>Livraison</span>
           <span data-testid="cart-shipping" data-value={shipping_total || 0}>
             {convertToLocale({ amount: shipping_total ?? 0, currency_code })}
           </span>
@@ -66,7 +71,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
         </div>
         {!!gift_card_total && (
           <div className="flex items-center justify-between">
-            <span>Gift card</span>
+            <span>Carte cadeau</span>
             <span
               className="text-ui-fg-interactive"
               data-testid="cart-gift-card-amount"
@@ -79,7 +84,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
         )}
       </div>
       <div className="h-px w-full border-b border-gray-200 my-4" />
-      <div className="flex items-center justify-between text-ui-fg-base mb-2 txt-medium ">
+      <div className="flex items-center justify-between  text-[#F5F5F7] mb-2 txt-medium">
         <span>Total</span>
         <span
           className="txt-xlarge-plus"

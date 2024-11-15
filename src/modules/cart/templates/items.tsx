@@ -11,25 +11,21 @@ type ItemsTemplateProps = {
 
 const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
   return (
-    <div>
-      <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
-      </div>
-      <Table>
-        <Table.Header className="border-t-0">
-          <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
-            <Table.HeaderCell className="hidden small:table-cell">
-              Price
-            </Table.HeaderCell>
-            <Table.HeaderCell className="!pr-0 text-right">
-              Total
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+ <Table className="bg-transparent hover:bg-transparent">
+      <Table.Header className="border-t-0 bg-transparent hover:bg-transparent">
+        <Table.Row className="text-[#F5F5F7] txt-medium-plus bg-transparent hover:bg-transparent first:bg-transparent first:hover:bg-transparent">
+          <Table.HeaderCell className="!pl-0">Article</Table.HeaderCell>
+          <Table.HeaderCell />
+          <Table.HeaderCell>Quantité</Table.HeaderCell>
+          <Table.HeaderCell className="hidden small:table-cell">
+            Prix
+          </Table.HeaderCell>
+          <Table.HeaderCell className="!pr-0 text-right">
+            Total
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body className="bg-transparent hover:bg-transparent">
           {items
             ? items
                 .sort((a, b) => {
@@ -41,9 +37,8 @@ const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
             : repeat(5).map((i) => {
                 return <SkeletonLineItem key={i} />
               })}
-        </Table.Body>
-      </Table>
-    </div>
+      </Table.Body>
+    </Table>
   )
 }
 
