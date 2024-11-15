@@ -1,0 +1,28 @@
+.root {
+  border-radius: 10px;
+  background-color: var(--neutral-light);
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
+  border-top: 15px solid var(--neutral-light);
+  border-bottom: 15px solid var(--neutral-light);
+  box-sizing: border-box;
+}
+
+.dark {
+  background-color: var(--neutral-dark);
+  border-top: 15px solid var(--neutral-dark);
+  border-bottom: 15px solid var(--neutral-dark);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  display: block;
+  align-items: center;
+  gap: 8px;
+}

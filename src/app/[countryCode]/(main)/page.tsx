@@ -6,10 +6,10 @@ import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: 'Joaillerie moderne depuis 2021 • liome',
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
-}
+    'Découvrez notre collection de bijoux modernes et minimalistes. Livraison gratuite pour toute commande.',
+};
 
 export default async function Home({
   params: { countryCode },
@@ -26,7 +26,7 @@ export default async function Home({
   return (
     <>
       <Hero />
-      <div className="py-12">
+      <div>
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
         </ul>

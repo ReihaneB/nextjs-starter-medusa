@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 16px;
+  background-color: var(--neutral-light);
+}
+
+.link {
+  color: var(--white-medium);
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.text {
+  @media (width <= 480px) {
+    display: none;
+  }
+}
+
+.icon {
+  fill: var(--white-light);
+  display: none;
+
+  @media (width <= 480px) {
+    display: block;
+    height: 18px;
+    width: 18px;
+  }
+}
+
+.icon > path {
+  fill: var(--white-light);
+}

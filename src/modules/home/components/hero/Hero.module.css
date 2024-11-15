@@ -1,0 +1,71 @@
+.root {
+  height: calc(100vh - (250px - (36px + 53px)));
+  display: grid;
+  grid-template-columns: 400px 1fr;
+
+  @media (width <= 1199px) {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  @media (width <= 767px) {
+    height: inherit;
+    margin-top: 36px;
+  }
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  margin-bottom: 24px;
+
+  @media (width <= 1199px) {
+    margin-bottom: 16px;
+  }
+}
+
+.rightSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  @media (width <= 1199px) {
+    height: inherit;
+  }
+
+  @media (width <= 767px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  width: 33%;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: width 0.3s ease-in-out;
+
+  @media (width <= 767px) {
+    height: 200px;
+    width: 100%;
+    transition: none;
+  }
+}
+
+.card:hover {
+  width: 100%;
+}
+
+.cardText {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
