@@ -5,6 +5,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import { HttpTypes } from "@medusajs/types"
+import PageBlock from "widgets/PageBlock/PageBlock"
 
 export default function CollectionTemplate({
   sortBy,
@@ -21,21 +22,18 @@ export default function CollectionTemplate({
   const sort = sortBy || "created_at"
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
-      <RefinementList sortBy={sort} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1>{collection.title}</h1>
-        </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            collectionId={collection.id}
-            countryCode={countryCode}
-          />
-        </Suspense>
-      </div>
-    </div>
+    <PageBlock
+      title={collection.title}
+      layout="1-left-2-right"
+      content={[
+        <RefinementList sortBy={sortBy || "created_at"} />,
+        <PaginatedProducts
+          sortBy={sortBy || "created_at"}
+          page={pageNumber}
+          collectionId={collection.id}
+          countryCode={countryCode}
+        />,
+      ]}
+    />
   )
 }

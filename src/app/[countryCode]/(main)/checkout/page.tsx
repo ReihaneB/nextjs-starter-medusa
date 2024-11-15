@@ -7,6 +7,7 @@ import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import { enrichLineItems, retrieveCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { getCustomer } from "@lib/data/customer"
+import PageBlock from "widgets/PageBlock/PageBlock"
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -31,11 +32,15 @@ export default async function Checkout() {
   const customer = await getCustomer()
 
   return (
-    <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
-      <Wrapper cart={cart}>
-        <CheckoutForm cart={cart} customer={customer} />
-      </Wrapper>
-      <CheckoutSummary cart={cart} />
-    </div>
+    <PageBlock
+      title="Checkout"
+      layout="2-left-1-right"
+      content={[
+        <Wrapper cart={cart}>
+          <CheckoutForm cart={cart} customer={customer} />
+        </Wrapper>,
+        <CheckoutSummary cart={cart} />,
+      ]}
+    />
   )
 }

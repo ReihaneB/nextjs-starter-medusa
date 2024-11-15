@@ -10,6 +10,7 @@ import Spinner from "@modules/common/icons/spinner"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { isManual, isPaypal, isStripe } from "@lib/constants"
+import styles from "./PaymentButton.module.css"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -176,10 +177,12 @@ const StripePaymentButton = ({
         disabled={disabled || notReady}
         onClick={handlePayment}
         size="large"
+        variant="transparent"
         isLoading={submitting}
         data-testid={dataTestId}
+        className={styles.button}
       >
-        Place order
+        Passer la commande
       </Button>
       <ErrorMessage
         error={errorMessage}
