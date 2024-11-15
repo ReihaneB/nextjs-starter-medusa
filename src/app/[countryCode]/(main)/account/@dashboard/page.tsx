@@ -6,9 +6,9 @@ import { getCustomer } from "@lib/data/customer"
 import { listOrders } from "@lib/data/orders"
 
 export const metadata: Metadata = {
-  title: "Account",
-  description: "Overview of your account activity.",
-}
+  title: 'Mon compte • liome',
+  description: 'Consultez et mettez à jour vos informations personnelles, vos commandes et vos adresses.',
+};
 
 export default async function OverviewTemplate() {
   const customer = await getCustomer().catch(() => null)

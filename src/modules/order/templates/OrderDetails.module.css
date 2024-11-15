@@ -1,0 +1,12 @@
+.buttonSecondary {
+  border: 1px solid var(--white-dark);
+  border-radius: 4px;
+  color: var(--white-light);
+  padding: 8px 16px;
+  background-color: var(--secondary-light);
+  flex: 1;
+}
+
+.buttonSecondary:hover {
+  background-color: var(--secondary-medium);
+}

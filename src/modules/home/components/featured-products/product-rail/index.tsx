@@ -7,10 +7,12 @@ export default function ProductRail({
   collection,
   region,
 }: {
-  collection: HttpTypes.StoreCollection
+  collection: HttpTypes.StoreProductCategory
   region: HttpTypes.StoreRegion
 }) {
   const { products } = collection
+
+  console.log("collection", collection)
 
   if (!products) {
     return null
@@ -19,20 +21,16 @@ export default function ProductRail({
   return (
     <div>
       <div className="flex justify-between mb-8">
-        <h2>{collection.title}</h2>
+        <h2>{collection.name}</h2>
         <InteractiveLink href={`/categories/${collection.handle}`}>
           Voir tout
         </InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-3 gap-6">
         {products &&
-          products.map(product => (
+          products.map((product) => (
             <li key={product.id}>
-              <ProductPreview
-                product={product}
-                region={region}
-                isFeatured
-              />
+              <ProductPreview product={product} region={region} isFeatured />
             </li>
           ))}
       </ul>

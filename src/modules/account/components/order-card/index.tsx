@@ -1,10 +1,11 @@
-import { Button } from "@medusajs/ui"
+import { Button, Container } from "@medusajs/ui"
 import { useMemo } from "react"
 
 import Thumbnail from "@modules/products/components/thumbnail"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import ChevronDown from "@modules/common/icons/chevron-down"
 
 type OrderCardProps = {
   order: HttpTypes.StoreOrder
@@ -24,62 +25,57 @@ const OrderCard = ({ order }: OrderCardProps) => {
   }, [order])
 
   return (
-    <div className="bg-white flex flex-col" data-testid="order-card">
-      <div className="uppercase text-large-semi mb-1">
-        #<span data-testid="order-display-id">{order.display_id}</span>
-      </div>
-      <div className="flex items-center divide-x divide-gray-200 text-small-regular text-ui-fg-base">
-        <span className="pr-2" data-testid="order-created-at">
-          {new Date(order.created_at).toDateString()}
-        </span>
-        <span className="px-2" data-testid="order-amount">
-          {convertToLocale({
-            amount: order.total,
-            currency_code: order.currency_code,
-          })}
-        </span>
-        <span className="pl-2">{`${numberOfLines} ${
-          numberOfLines > 1 ? "items" : "item"
-        }`}</span>
-      </div>
-      <div className="grid grid-cols-2 small:grid-cols-4 gap-4 my-4">
-        {order.items?.slice(0, 3).map((i) => {
-          return (
-            <div
-              key={i.id}
-              className="flex flex-col gap-y-2"
-              data-testid="order-item"
-            >
-              <Thumbnail thumbnail={i.thumbnail} images={[]} size="full" />
-              <div className="flex items-center text-small-regular text-ui-fg-base">
-                <span
-                  className="text-ui-fg-base font-semibold"
-                  data-testid="item-title"
-                >
-                  {i.title}
-                </span>
-                <span className="ml-2">x</span>
-                <span data-testid="item-quantity">{i.quantity}</span>
-              </div>
-            </div>
-          )
-        })}
-        {numberOfProducts > 4 && (
-          <div className="w-full h-full flex flex-col items-center justify-center">
-            <span className="text-small-regular text-ui-fg-base">
-              + {numberOfLines - 4}
+    <div key={order.id} data-testid="order-wrapper" data-value={order.id}>
+      <LocalizedClientLink href={`/account/orders/details/${order.id}`}>
+        <Container className="bg-[#303134] flex justify-between items-center p-4">
+          <div className="grid grid-cols-3 grid-rows-2 text-small-regular gap-x-4 flex-1">
+            <span className="font-semibold text-[var(--white-medium)]">
+              Commande passée le
             </span>
-            <span className="text-small-regular text-ui-fg-base">more</span>
+            <span className="font-semibold text-[var(--white-medium)]">
+              Numéro de commande
+            </span>
+            <span className="font-semibold text-[var(--white-medium)]">
+              Total de la commande
+            </span>
+            <span
+              data-testid="order-created-date"
+              className="text-[var(--white-light)]"
+            >
+              {/* TODO: Change 'fr-FR' when adding translation support */}
+              {new Date(order.created_at).toLocaleDateString("fr-FR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                weekday: "long",
+              })}
+            </span>
+            <span
+              data-testid="order-id"
+              data-value={order.display_id}
+              className="text-[var(--white-light)]"
+            >
+              #{order.display_id}
+            </span>
+            <span
+              data-testid="order-amount"
+              className="text-[var(--white-light)]"
+            >
+              {convertToLocale({
+                amount: order.total,
+                currency_code: order.currency_code,
+              })}
+            </span>
           </div>
-        )}
-      </div>
-      <div className="flex justify-end">
-        <LocalizedClientLink href={`/account/orders/details/${order.id}`}>
-          <Button data-testid="order-details-link" variant="secondary">
-            See details
-          </Button>
-        </LocalizedClientLink>
-      </div>
+          <button
+            className="flex items-center justify-between text-[var(--white-light)]"
+            data-testid="open-order-button"
+            type="button"
+          >
+            <ChevronDown className="-rotate-90" />
+          </button>
+        </Container>
+      </LocalizedClientLink>
     </div>
   )
 }

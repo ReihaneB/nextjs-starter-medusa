@@ -14,9 +14,9 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
   }
 
   return (
-    <div>
-      <Text>
-        We have sent the order confirmation details to{" "}
+    <div className="mt-8">
+      <p className="text-[var(--white-light)]">
+        Nous avons envoyé un email de confirmation à{" "}
         <span
           className="text-ui-fg-medium-plus font-semibold"
           data-testid="order-email"
@@ -24,38 +24,36 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
           {order.email}
         </span>
         .
-      </Text>
-      <Text className="mt-2">
-        Order date:{" "}
+      </p>
+      <p className="mt-2 text-[var(--white-light)]">
+        Date de commande:{" "}
         <span data-testid="order-date">
-          {new Date(order.created_at).toDateString()}
+          {/* TODO: Change 'fr-FR' when adding translation support */}
+          {new Date(order.created_at).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            weekday: "long",
+          })}
         </span>
-      </Text>
-      <Text className="mt-2 text-ui-fg-interactive">
-        Order number: <span data-testid="order-id">{order.display_id}</span>
-      </Text>
-
+      </p>
+      <p className="mt-2 text-[var(--white-medium)]">
+        Numéro de commande:{" "}
+        <span data-testid="order-id">#{order.display_id}</span>
+      </p>
       <div className="flex items-center text-compact-small gap-x-4 mt-4">
-        {showStatus && (
-          <>
-            <Text>
-              Order status:{" "}
-              <span className="text-ui-fg-subtle " data-testid="order-status">
-                {/* TODO: Check where the statuses should come from */}
-                {/* {formatStatus(order.fulfillment_status)} */}
-              </span>
-            </Text>
-            <Text>
-              Payment status:{" "}
-              <span
-                className="text-ui-fg-subtle "
-                sata-testid="order-payment-status"
-              >
-                {/* {formatStatus(order.payment_status)} */}
-              </span>
-            </Text>
-          </>
-        )}
+        <p className="text-[var(--white-light)]">
+          Statut de la commande:{" "}
+          <span data-testid="order-status">
+            {formatStatus(order.fulfillment_status)}
+          </span>
+        </p>
+        <p className="text-[var(--white-light)]">
+          Statut de paiement:{" "}
+          <span data-testid="order-payment-status">
+            {formatStatus(order.payment_status)}
+          </span>
+        </p>
       </div>
     </div>
   )

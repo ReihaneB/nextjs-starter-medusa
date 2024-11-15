@@ -1,19 +1,22 @@
-import { Heading } from "@medusajs/ui"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import React from "react"
 
-const Help = () => {
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+function Help() {
+  // TODO: Modify the information when adding return conditions, etc.
   return (
-    <div className="mt-6">
-      <Heading className="text-base-semi">Need help?</Heading>
-      <div className="text-base-regular my-2">
+    <div className="mb-6">
+      <h2 className="mb-4 mt-6">Besoin d'aide ?</h2>
+      <div className="text-base-regular text-[var(--white-light)]">
         <ul className="gap-y-2 flex flex-col">
           <li>
-            <LocalizedClientLink href="/contact">Contact</LocalizedClientLink>
+            <LocalizedClientLink href="/assistance">
+              Nous contacter
+            </LocalizedClientLink>
           </li>
           <li>
-            <LocalizedClientLink href="/contact">
-              Returns & Exchanges
+            <LocalizedClientLink href="/legal/returns-policy">
+              Retours et échanges
             </LocalizedClientLink>
           </li>
         </ul>

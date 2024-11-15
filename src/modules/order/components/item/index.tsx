@@ -12,23 +12,37 @@ type ItemProps = {
 
 const Item = ({ item }: ItemProps) => {
   return (
-    <Table.Row className="w-full" data-testid="product-row">
+    <Table.Row
+      className="w-full bg-transparent hover:bg-transparent"
+      data-testid="product-row"
+    >
       <Table.Cell className="!pl-0 p-4 w-24">
         <div className="flex w-16">
-          <Thumbnail thumbnail={item.thumbnail} size="square" />
+          <Thumbnail
+            thumbnail={item.thumbnail}
+            images={item.variant?.product?.images}
+            size="square"
+          />
         </div>
       </Table.Cell>
-
       <Table.Cell className="text-left">
         <Text
-          className="txt-medium-plus text-ui-fg-base"
+          className="txt-medium-plus text-[var(--white-light)]"
           data-testid="product-name"
         >
           {item.title}
         </Text>
-        <LineItemOptions variant={item.variant} data-testid="product-variant" />
+        <LineItemOptions
+          title="Taille"
+          content={item.metadata.size}
+          data-testid="product-size"
+        />
+        <LineItemOptions
+          title="Option"
+          content={item.variant.title}
+          data-testid="product-variant"
+        />
       </Table.Cell>
-
       <Table.Cell className="!pr-0">
         <span className="!pr-0 flex flex-col items-end h-full justify-center">
           <span className="flex gap-x-1 ">
@@ -37,7 +51,6 @@ const Item = ({ item }: ItemProps) => {
             </Text>
             <LineItemUnitPrice item={item} style="tight" />
           </span>
-
           <LineItemPrice item={item} style="tight" />
         </span>
       </Table.Cell>

@@ -30,18 +30,15 @@ export default async function ProductPreview({
   })
 
   return (
-    <LocalizedClientLink
-      href={`/products/${product.handle}`}
-    >
+    <LocalizedClientLink href={`/products/${product.handle}`}>
       <div
         data-testid="product-wrapper"
         className="flex flex-col gap-y-4 p-4 bg-[#303134] rounded-lg"
       >
         <Thumbnail
           thumbnail={product.thumbnail}
-          images={product.images}
-          isFeatured={isFeatured}
           size="square"
+          isFeatured={isFeatured}
         />
         <div className="flex flex-col gap-y-2">
           <div className="flex flex-col gap-y-1">
@@ -49,7 +46,7 @@ export default async function ProductPreview({
               className="text-[var(--white-medium)]"
               data-testid="product-category"
             >
-              {product.categories?.map(category => category.name).join(', ')}
+              {product.categories?.map((category) => category.name).join(", ")}
             </span>
             <span
               className="text-[var(--white-light)] font-bold"
@@ -58,9 +55,7 @@ export default async function ProductPreview({
               {product.title}
             </span>
           </div>
-          <div>
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          </div>
+          <div>{cheapestPrice && <PreviewPrice price={cheapestPrice} />}</div>
         </div>
       </div>
     </LocalizedClientLink>

@@ -1,0 +1,45 @@
+.buttonSecondary {
+  border: 1px solid var(--white-dark);
+  border-radius: 4px;
+  color: var(--white-light);
+  padding: 8px 16px;
+  background-color: var(--secondary-light);
+  flex: 1;
+}
+
+.buttonSecondary:hover {
+  background-color: var(--secondary-medium);
+}
+
+.button {
+  padding: 12px 24px;
+  text-align: center;
+  border-radius: 4px;
+  color: var(--white-light);
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--primary-light);
+  width: 100%;
+}
+
+.button:hover {
+  background-color: var(--primary-dark);
+}
+
+.button:disabled {
+  background-color: var(--white-dark);
+  color: var(--white-light);
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background-color: var(--white-dark);
+}
+
+.button:disabled:active {
+  transform: none;
+}
+
+.button:active {
+  transform: translateY(2px);
+}

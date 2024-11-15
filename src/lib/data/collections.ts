@@ -2,6 +2,7 @@ import { sdk } from "@lib/config"
 import { cache } from "react"
 import { getProductsList } from "./products"
 import { HttpTypes } from "@medusajs/types"
+import { ProductCategory } from "@medusajs/js-sdk/dist/admin/product-category"
 
 export const retrieveCollection = cache(async function (id: string) {
   return sdk.store.collection
@@ -60,3 +61,50 @@ export const getCollectionsWithProducts = cache(
     return collections as unknown as HttpTypes.StoreCollection[]
   }
 )
+
+
+export const getCategoriesList = cache(async function (
+  offset: number = 0,
+  limit: number = 100
+): Promise<{ product_categories: HttpTypes.StoreProductCategory[]; count: number }> {
+  return sdk.store.category
+    .list({ limit, offset: 0 }, { next: { tags: ["categories"] } })
+    .then(({ product_categories }) => ({ product_categories, count: product_categories.length }))
+})
+
+export const getCategoriesWithProducts = cache(
+  async (
+    countryCode: string
+  ): Promise<HttpTypes.StoreProductCategory[] | null> => {
+    const { product_categories: categories } = await getCategoriesList(0, 3);
+
+    if (!categories) {
+      return null;
+    }
+
+    const categoriesIds = categories.map(categories => categories.id);
+
+    await Promise.all(
+      categoriesIds.map(id => getProductsList({
+        queryParams: { category_id: [id] },
+        countryCode,
+      }))
+    ).then(responses => responses.forEach(({ response, queryParams }) => {
+      let category;
+
+      if (categories) {
+        category = categories.find(
+          category => category.id === queryParams?.category_id?.[0]
+        );
+      }
+
+      if (!category) {
+        return;
+      }
+
+      category.products = response.products;
+    }));
+
+    return categories as unknown as HttpTypes.StoreProductCategory[];
+  }
+);
