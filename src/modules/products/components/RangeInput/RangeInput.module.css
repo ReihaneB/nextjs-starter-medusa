@@ -1,0 +1,69 @@
+.root {  
+  position: relative;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.baseRangeInputStyle {
+  appearance: none;
+  width: 100%;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--neutral-dark);
+  cursor: pointer;
+
+  &::-moz-range-thumb {
+    appearance: none;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent; 
+    cursor: grab;
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 36px;
+    height: 36px;
+    background: transparent; 
+    cursor: grab;
+  }
+}
+
+.baseRangeThumbStyle {
+  position: absolute;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  pointer-events: none;
+  background-color: var(--white-medium);
+  color: var(--base);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  &::before {
+    content: attr(data-val);
+  }
+
+  &::-moz-range-thumb {
+    border-radius: 10px;
+  }
+}
+
+.rangeMarkerStyle {
+  color: var(--white-medium);
+  background-color: var(--secondary-medium);
+  composes: baseRangeThumbStyle;
+}
+
+.markers {
+  width: calc(100% - 36px);
+  position: relative;
+}

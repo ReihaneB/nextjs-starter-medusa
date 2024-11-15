@@ -2,17 +2,20 @@
 
 import { Button } from "@medusajs/ui"
 import { isEqual } from "lodash"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { useIntersection } from "@lib/hooks/use-in-view"
 import Divider from "@modules/common/components/divider"
-import OptionSelect from "@modules/products/components/product-actions/option-select"
 
 import MobileActions from "./mobile-actions"
 import ProductPrice from "../product-price"
 import { addToCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import RangeInput from '../RangeInput/RangeInput';
+
+import styles from './ProductActions.module.css';
+import OptionSelect from "../option-select/option-select";
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -29,11 +32,13 @@ const optionsAsKeymap = (variantOptions: HttpTypes.StoreProductVariant["options"
 
 export default function ProductActions({
   product,
-  region,
   disabled,
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [size, setSize] = useState(55);
+  const router = useRouter();
+
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
@@ -89,8 +94,6 @@ export default function ProductActions({
 
   const actionsRef = useRef<HTMLDivElement>(null)
 
-  const inView = useIntersection(actionsRef, "0px")
-
   // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
@@ -101,64 +104,60 @@ export default function ProductActions({
       variantId: selectedVariant.id,
       quantity: 1,
       countryCode,
-    })
+      size,
+    }).then(() => {
+      router.push('/cart');
+    }).catch(() => {
+      setIsAdding(false);
+    });
 
     setIsAdding(false)
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-y-2" ref={actionsRef}>
-        <div>
-          {(product.variants?.length ?? 0) > 1 && (
-            <div className="flex flex-col gap-y-4">
-              {(product.options || []).map((option) => {
-                return (
-                  <div key={option.id}>
-                    <OptionSelect
-                      option={option}
-                      current={options[option.id]}
-                      updateOption={setOptionValue}
-                      title={option.title ?? ""}
-                      data-testid="product-options"
-                      disabled={!!disabled || isAdding}
-                    />
-                  </div>
-                )
-              })}
-              <Divider />
+    <div className={styles.root} ref={actionsRef}>
+    <div className={styles.main}>
+    {(product.variants?.length ?? 0) > 1 && (
+      <div className={styles.personnalization}>
+        <div className="flex flex-col gap-y-4">
+          {(product.options || []).map(option => (
+            <div key={option.id}>
+              <OptionSelect
+                option={option}
+                current={options[option.id]}
+                updateOption={setOptionValue}
+                title={option.title}
+                data-testid="product-options"
+                disabled={!!disabled || isAdding}
+              />
             </div>
-          )}
+          ))}
         </div>
-
-        <ProductPrice product={product} variant={selectedVariant} />
-
-        <Button
+      </div>
+      )}
+      <RangeInput
+        onChange={value => setSize(value)}
+      />
+      <div className={styles.header}>
+        <h2 className={styles.title}>{product.title}</h2>
+        <ProductPrice product={product} variant={selectedVariant}  />
+      </div>
+      <div>
+        <button
+          type="button"
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
-          variant="primary"
-          className="w-full h-10"
-          isLoading={isAdding}
+          className={styles.button}
           data-testid="add-product-button"
         >
-          {!selectedVariant
-            ? "Select variant"
-            : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
-        </Button>
-        <MobileActions
-          product={product}
-          variant={selectedVariant}
-          options={options}
-          updateOptions={setOptionValue}
-          inStock={inStock}
-          handleAddToCart={handleAddToCart}
-          isAdding={isAdding}
-          show={!inView}
-          optionsDisabled={!!disabled || isAdding}
-        />
+          {!selectedVariant ?
+            'Sélectionnez votre personnalisation' :
+            !inStock ?
+              'En rupture de stock' :
+              'Commander'}
+        </button>
       </div>
-    </>
+    </div>
+  </div>
   )
 }

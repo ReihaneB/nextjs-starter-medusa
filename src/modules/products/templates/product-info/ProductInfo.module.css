@@ -1,0 +1,22 @@
+.root {
+  margin-bottom: 36px;
+}
+
+.collection {
+  display: block;
+  font-style: italic;
+  color: var(--white-dark);
+  background-color: var(--neutral-dark);
+  border-radius: 4px;
+  width: fit-content;
+  padding: 4px 16px;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.description {
+  color: var(--white-light);
+}

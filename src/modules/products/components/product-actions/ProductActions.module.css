@@ -1,0 +1,69 @@
+.root {
+  margin-right: -60px;
+  margin-left: -60px;
+  align-self: end;
+  border-top: 1px solid var(--white-dark);
+
+  @media (width <= 957px) {
+    height: 100%;
+    align-self: initial;
+    margin-right: -24px;
+    margin-left: -24px;
+    border-top: none;
+  }
+}
+
+.main {
+  margin: 36px 60px;
+
+  @media (width <= 957px) {
+    margin: 0 24px 36px;
+  }
+}
+
+.personnalization {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px
+}
+
+.button {
+  padding: 12px 24px;
+  text-align: center;
+  border-radius: 4px;
+  color: var(--white-light);
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--primary-light);
+  width: 100%;
+}
+
+.button:hover {
+  background-color: var(--primary-dark);
+}
+
+.button:disabled {
+  background-color: var(--white-dark);
+  color: var(--white-light);
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background-color: var(--white-dark);
+}
+
+.button:disabled:active {
+  transform: none;
+}
+
+.button:active {
+  transform: translateY(2px);
+}
